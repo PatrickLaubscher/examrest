@@ -1,0 +1,35 @@
+@startuml
+
+class User {
+    String id
+    String lastname
+    String firstname
+    String email
+}
+
+
+class Expenditure {
+    String id
+    String description
+    Double amount
+    String group_user_id
+}
+
+class Group {
+    String id
+    String name
+    String description
+}
+
+class GroupUser {
+    String group_id
+    String user_id
+}
+
+
+GroupUser ||..o{ Expenditure
+User ||..o{ GroupUser
+Group ||..o{ GroupUser
+
+
+@enduml
