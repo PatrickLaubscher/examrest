@@ -57,10 +57,10 @@ public class User implements UserDetails {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    public String getFirstanme() {
+    public String getFirstname() {
         return firstname;
     }
-    public void setFirstanme(String firstname) {
+    public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
     public String getEmail() {

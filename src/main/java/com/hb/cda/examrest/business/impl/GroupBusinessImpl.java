@@ -24,9 +24,13 @@ public class GroupBusinessImpl implements GroupBusiness {
         if (groupRepository.findByName(group.getName()).isPresent()) {
             throw new GroupAlreadyExistsException();
         }
-       Group newGroup = groupRepository.save(group);
 
-       return newGroup;
+        Integer lastNumber = groupRepository.findMaxNumero().orElse(0);
+        group.setNumber(lastNumber+1);
+
+        Group newGroup = groupRepository.save(group);
+
+        return newGroup;
     }
 
 
