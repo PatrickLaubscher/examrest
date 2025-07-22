@@ -40,12 +40,11 @@ public class Contributor {
     public Contributor() {
     }
 
-    public Contributor(String userId, String groupId, User user, Group group, List<Expenditure> expenditures) {
+    public Contributor(String userId, String groupId, User user, Group group) {
         this.userId = userId;
         this.groupId = groupId;
         this.user = user;
         this.group = group;
-        this.expenditures = expenditures;
     }
 
 
