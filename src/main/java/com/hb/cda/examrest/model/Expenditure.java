@@ -15,7 +15,6 @@ public class Expenditure {
     private String description;
     private double amont;
     
-
     @ManyToOne
     private Contributor contributor;
 
