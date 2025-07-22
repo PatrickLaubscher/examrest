@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @UuidGenerator
     private String id;
     private String lastname;
-    private String firstanme;
+    private String firstname;
     private String email;
     private String password;
     private String role;
@@ -36,10 +36,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String id, String lastname, String firstanme, String email, String password, String role) {
+    public User(String id, String lastname, String firstname, String email, String password, String role) {
         this.id = id;
         this.lastname = lastname;
-        this.firstanme = firstanme;
+        this.firstname = firstname;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -58,10 +58,10 @@ public class User implements UserDetails {
         this.lastname = lastname;
     }
     public String getFirstanme() {
-        return firstanme;
+        return firstname;
     }
-    public void setFirstanme(String firstanme) {
-        this.firstanme = firstanme;
+    public void setFirstanme(String firstname) {
+        this.firstname = firstname;
     }
     public String getEmail() {
         return email;
@@ -110,7 +110,7 @@ public class User implements UserDetails {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-        result = prime * result + ((firstanme == null) ? 0 : firstanme.hashCode());
+        result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -137,10 +137,10 @@ public class User implements UserDetails {
                 return false;
         } else if (!lastname.equals(other.lastname))
             return false;
-        if (firstanme == null) {
-            if (other.firstanme != null)
+        if (firstname == null) {
+            if (other.firstname != null)
                 return false;
-        } else if (!firstanme.equals(other.firstanme))
+        } else if (!firstname.equals(other.firstname))
             return false;
         if (email == null) {
             if (other.email != null)

@@ -2,11 +2,12 @@ package com.hb.cda.examrest.controller.dto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 import com.hb.cda.examrest.model.Group;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy= ReportingPolicy.IGNORE)
 public interface GroupMapper {
 
     Group toEntity(CreateGroupDTO dto);
