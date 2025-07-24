@@ -1,4 +1,4 @@
-package com.hb.cda.examrest.controller.dto;
+package com.hb.cda.examrest.controller.dto.group;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

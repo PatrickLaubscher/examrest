@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.ContributorBusiness;
-import com.hb.cda.examrest.controller.dto.CreateContributorDTO;
+import com.hb.cda.examrest.controller.dto.contributor.CreateContributorDTO;
 
 
 @RestController

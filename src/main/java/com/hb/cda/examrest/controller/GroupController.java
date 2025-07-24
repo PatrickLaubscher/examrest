@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.GroupBusiness;
-import com.hb.cda.examrest.controller.dto.CreateGroupDTO;
-import com.hb.cda.examrest.controller.dto.GroupMapper;
+import com.hb.cda.examrest.controller.dto.group.CreateGroupDTO;
+import com.hb.cda.examrest.controller.dto.group.GroupMapper;
 
 import jakarta.validation.Valid;
 

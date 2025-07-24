@@ -1,7 +1,9 @@
 package com.hb.cda.examrest.business.impl;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.hb.cda.examrest.business.AccountBusiness;
 import com.hb.cda.examrest.business.exception.UserAlreadyExistsException;
@@ -38,6 +40,15 @@ public class AccountBusinessImpl implements AccountBusiness {
        User savedUser = userRepository.save(user);
 
        return savedUser;
+
+    }
+
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte user n'existe pas")
+        );
 
     }
 

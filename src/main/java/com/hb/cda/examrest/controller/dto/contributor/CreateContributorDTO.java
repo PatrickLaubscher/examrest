@@ -1,4 +1,4 @@
-package com.hb.cda.examrest.controller.dto;
+package com.hb.cda.examrest.controller.dto.contributor;
 
 import jakarta.validation.constraints.NotBlank;
 

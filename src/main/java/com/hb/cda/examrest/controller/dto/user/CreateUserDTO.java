@@ -1,4 +1,4 @@
-package com.hb.cda.examrest.controller.dto;
+package com.hb.cda.examrest.controller.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

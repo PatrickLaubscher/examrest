@@ -1,4 +1,4 @@
-package com.hb.cda.examrest.controller.dto;
+package com.hb.cda.examrest.controller.dto.user;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -10,5 +10,5 @@ import com.hb.cda.examrest.model.User;
 public interface UserMapper {
 
     User toEntity(CreateUserDTO dto);
-    
+    UserDTO toDTO(User user);
 }
