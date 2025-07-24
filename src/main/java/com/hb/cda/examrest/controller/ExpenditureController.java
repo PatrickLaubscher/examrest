@@ -28,7 +28,7 @@ public class ExpenditureController {
 
         Expenditure expenditure = expenditureBusiness.addExpenditure(dto.getEmail(), dto.getGroupNumber(), dto.getAmount(), dto.getDescription());
 
-            return "Nouvelle dépense de " + expenditure.getAmont() + "€";
+            return "Nouvelle dépense de " + expenditure.getAmount() + "€";
     }
     
     

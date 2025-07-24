@@ -13,7 +13,7 @@ public class Expenditure {
     @UuidGenerator
     private String id;
     private String description;
-    private double amont;
+    private double amount;
     
     @ManyToOne
     private Contributor contributor;
@@ -26,10 +26,10 @@ public class Expenditure {
     public Expenditure() {
     }
 
-    public Expenditure(String id, String description, double amont, Contributor contributor, Group group) {
+    public Expenditure(String id, String description, double amount, Contributor contributor, Group group) {
         this.id = id;
         this.description = description;
-        this.amont = amont;
+        this.amount = amount;
         this.contributor = contributor;
         this.group = group;
     }
@@ -50,12 +50,12 @@ public class Expenditure {
         this.description = description;
     }
 
-    public double getAmont() {
-        return amont;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmont(double amont) {
-        this.amont = amont;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public Contributor getContributor() {
@@ -81,7 +81,7 @@ public class Expenditure {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         long temp;
-        temp = Double.doubleToLongBits(amont);
+        temp = Double.doubleToLongBits(amount);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((contributor == null) ? 0 : contributor.hashCode());
         result = prime * result + ((group == null) ? 0 : group.hashCode());
@@ -107,7 +107,7 @@ public class Expenditure {
                 return false;
         } else if (!description.equals(other.description))
             return false;
-        if (Double.doubleToLongBits(amont) != Double.doubleToLongBits(other.amont))
+        if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
             return false;
         if (contributor == null) {
             if (other.contributor != null)

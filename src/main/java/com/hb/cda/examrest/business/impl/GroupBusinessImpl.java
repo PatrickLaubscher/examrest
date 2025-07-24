@@ -1,6 +1,8 @@
 package com.hb.cda.examrest.business.impl;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.hb.cda.examrest.business.GroupBusiness;
 import com.hb.cda.examrest.business.exception.GroupAlreadyExistsException;
@@ -32,6 +34,17 @@ public class GroupBusinessImpl implements GroupBusiness {
         Group newGroup = groupRepository.save(group);
 
         return newGroup;
+    }
+
+
+    @Override
+    public Group findGroup(int groupNumber) {
+
+        Group group = groupRepository.findByNumber(groupNumber).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le groupe n'existe pas")
+        );
+
+        return group;
     }
 
 

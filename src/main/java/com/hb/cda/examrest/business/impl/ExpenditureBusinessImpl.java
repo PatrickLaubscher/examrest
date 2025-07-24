@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.hb.cda.examrest.business.ContributorBusiness;
 import com.hb.cda.examrest.business.ExpenditureBusiness;
 import com.hb.cda.examrest.model.Contributor;
 import com.hb.cda.examrest.model.Expenditure;
@@ -18,14 +19,18 @@ public class ExpenditureBusinessImpl implements ExpenditureBusiness {
     private final ExpenditureRepository expenditureRepository;
     private final ContributorRepository contributorRepository;
     private final GroupRepository groupRepository;
+    private final ContributorBusiness contributorBusiness;
 
-
+    
     public ExpenditureBusinessImpl(ExpenditureRepository expenditureRepository,
-            ContributorRepository contributorRepository, GroupRepository groupRepository) {
+            ContributorRepository contributorRepository, GroupRepository groupRepository,
+            ContributorBusiness contributorBusiness) {
         this.expenditureRepository = expenditureRepository;
         this.contributorRepository = contributorRepository;
         this.groupRepository = groupRepository;
+        this.contributorBusiness = contributorBusiness;
     }
+
 
 
     @Override
@@ -43,13 +48,14 @@ public class ExpenditureBusinessImpl implements ExpenditureBusiness {
 
         expenditure.setContributor(contributor);
         expenditure.setGroup(group);
-        expenditure.setAmont(amount);
+        expenditure.setAmount(amount);
         expenditure.setDescription(description);
 
         Expenditure newExpenditure = expenditureRepository.save(expenditure);
-        group.setTotal(group.getTotal() + expenditure.getAmont());
+        group.setTotal(group.getTotal() + expenditure.getAmount());
+        groupRepository.save(group);
         
-        // update Contributor balance in the group
+        contributorBusiness.updateAllContributorsBalance(group);
 
         return newExpenditure;
     }

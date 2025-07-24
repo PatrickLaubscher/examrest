@@ -26,6 +26,9 @@ public class Group {
     @OneToMany(mappedBy="group")
     List<Contributor> contributors = new ArrayList<>();
 
+    @OneToMany(mappedBy="group")
+    List<Expenditure> expenditures = new ArrayList<>();
+
 
     public Group() {
     }
@@ -84,6 +87,14 @@ public class Group {
 
     public void setContributors(List<Contributor> contributors) {
         this.contributors = contributors;
+    }
+
+    public List<Expenditure> getExpenditures() {
+        return expenditures;
+    }
+
+    public void setExpenditures(List<Expenditure> expenditures) {
+        this.expenditures = expenditures;
     }
 
 

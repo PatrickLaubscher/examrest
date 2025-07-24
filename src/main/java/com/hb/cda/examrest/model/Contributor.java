@@ -43,10 +43,10 @@ public class Contributor {
     }
 
 
-    public Contributor(String userId, String groupId, Double balance, User user, Group group) {
+    public Contributor(String userId, String groupId, User user, Group group) {
         this.userId = userId;
         this.groupId = groupId;
-        this.balance = balance;
+        this.balance = 0.0;
         this.user = user;
         this.group = group;
     }

@@ -11,5 +11,6 @@ import com.hb.cda.examrest.model.Group;
 public interface GroupMapper {
 
     Group toEntity(CreateGroupDTO dto);
+    GroupDTO toDTO(Group group);
     
 }
