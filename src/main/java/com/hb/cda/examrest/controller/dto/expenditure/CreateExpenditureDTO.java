@@ -13,10 +13,10 @@ public class CreateExpenditureDTO {
     @Min(1)
     private double amount;
     @NotBlank
-    @Size(min=4, max=64)
+    @Size(min=3, max=64)
     private String description;
 
-    
+
     public String getEmail() {
         return email;
     }
