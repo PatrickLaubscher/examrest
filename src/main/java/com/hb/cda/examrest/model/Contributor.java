@@ -23,6 +23,8 @@ public class Contributor {
     @Column(name="group_id")
     private String groupId;
 
+    private Double balance;
+
     @ManyToOne
     @jakarta.persistence.JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
@@ -40,9 +42,11 @@ public class Contributor {
     public Contributor() {
     }
 
-    public Contributor(String userId, String groupId, User user, Group group) {
+
+    public Contributor(String userId, String groupId, Double balance, User user, Group group) {
         this.userId = userId;
         this.groupId = groupId;
+        this.balance = balance;
         this.user = user;
         this.group = group;
     }
@@ -65,6 +69,16 @@ public class Contributor {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+
+    public Double getBalance() {
+        return balance;
+    }
+
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
 
@@ -97,7 +111,5 @@ public class Contributor {
         this.expenditures = expenditures;
     }
 
-
-    
 
 }

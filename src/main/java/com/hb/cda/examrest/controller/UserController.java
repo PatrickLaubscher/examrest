@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.AccountBusiness;
 import com.hb.cda.examrest.controller.dto.user.CreateUserDTO;
+import com.hb.cda.examrest.controller.dto.user.UserDTO;
 import com.hb.cda.examrest.controller.dto.user.UserMapper;
 
 import jakarta.validation.Valid;
@@ -26,23 +27,19 @@ public class UserController {
     public UserController(AccountBusiness accountBusiness, UserMapper userMapper) {
         this.accountBusiness = accountBusiness;
         this.userMapper = userMapper;
-
     }
 
 
 
-    @GetMapping("/")
-    public String getMethodName(@RequestParam String email) {
-
-        
-        return new String();
+    @GetMapping("")
+    public UserDTO getUserByEmail(@RequestParam String email) {
+        return userMapper.toDTO(accountBusiness.findUserByEmail(email));
     }
     
 
 
     @PostMapping("/create")
     public String create(@RequestBody @Valid CreateUserDTO dto) {
-        
         accountBusiness.register(userMapper.toEntity(dto));
             return "Compte créé";
     } 

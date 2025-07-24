@@ -1,4 +1,4 @@
-@startuml
+@startuml UML
 
 class User {
     String id
@@ -22,11 +22,13 @@ class Group {
     String id
     String name
     String description
+    Double total
 }
 
 class Contributor {
     String group_id
     String user_id
+    Double balance
 }
 
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hb.cda.examrest.business.GroupBusiness;
 import com.hb.cda.examrest.controller.dto.group.CreateGroupDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupMapper;
+import com.hb.cda.examrest.model.Group;
 
 import jakarta.validation.Valid;
 
@@ -29,8 +30,8 @@ public class GroupController {
 
     @PostMapping("/create")
     public String createGroup(@RequestBody @Valid CreateGroupDTO dto) {
-        groupBusiness.createGroup(groupMapper.toEntity(dto));
-            return "Groupe créé";
+        Group newGroup = groupBusiness.createGroup(groupMapper.toEntity(dto));
+            return "Groupe n°" + newGroup.getNumber() + " créé";
     } 
 
 

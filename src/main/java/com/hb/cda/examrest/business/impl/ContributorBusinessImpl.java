@@ -39,7 +39,10 @@ public class ContributorBusinessImpl implements ContributorBusiness {
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le groupe n'existe pas")
         );
 
-        Contributor contributor = new Contributor(user.getId(), group.getId(), user, group);
+
+        Double balance = 0.0; // to be updated with the balance calculation
+
+        Contributor contributor = new Contributor(user.getId(), group.getId(), balance, user, group);
         Contributor newContributor = contributorRepository.save(contributor);
 
         return newContributor;

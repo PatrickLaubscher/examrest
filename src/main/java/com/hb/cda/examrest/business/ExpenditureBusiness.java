@@ -6,5 +6,5 @@ import com.hb.cda.examrest.model.Expenditure;
 
 @Service
 public interface ExpenditureBusiness {
-    Expenditure addExpenditure(Expenditure expenditure);
+    Expenditure addExpenditure(String email, int groupNumber, double amount, String description);
 }
