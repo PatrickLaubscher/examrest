@@ -38,7 +38,7 @@ public class ExpenditureBusinessImpl implements ExpenditureBusiness {
 
 
     @Override
-    public Expenditure addExpenditure(String email, int groupNumber, double amount, String description) {
+    public Expenditure addExpenditure(String email, int groupNumber, Double amount, String description) {
 
         Contributor contributor = contributorRepository.findByUserEmailAndGroupNumber(email, groupNumber).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le contributeur n'existe pas pour ce groupe")
@@ -67,9 +67,9 @@ public class ExpenditureBusinessImpl implements ExpenditureBusiness {
 
     @Override
     @Transactional
-    public List<Expenditure> getExpendituresList(int groupNumber, String firstname, String lastname) {
+    public List<Expenditure> getExpendituresList(int groupNumber, String firstname, String lastname, Double minAmount, Double maxAmount) {
 
-        return expenditureRepository.findByGroupNumberAndOptionalUserName(groupNumber, firstname, lastname);
+        return expenditureRepository.findByGroupAndFilters(groupNumber, firstname, lastname, minAmount, maxAmount);
 
     }
 

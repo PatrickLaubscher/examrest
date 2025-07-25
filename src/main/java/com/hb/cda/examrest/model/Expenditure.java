@@ -13,7 +13,7 @@ public class Expenditure {
     @UuidGenerator
     private String id;
     private String description;
-    private double amount;
+    private Double amount;
     
     @ManyToOne
     private Contributor contributor;
@@ -26,7 +26,7 @@ public class Expenditure {
     public Expenditure() {
     }
 
-    public Expenditure(String id, String description, double amount, Contributor contributor, Group group) {
+    public Expenditure(String id, String description, Double amount, Contributor contributor, Group group) {
         this.id = id;
         this.description = description;
         this.amount = amount;
@@ -50,11 +50,11 @@ public class Expenditure {
         this.description = description;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

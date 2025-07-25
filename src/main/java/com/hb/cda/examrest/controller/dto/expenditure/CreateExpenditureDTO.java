@@ -11,7 +11,7 @@ public class CreateExpenditureDTO {
     @Min(1)
     private int groupNumber;
     @Min(1)
-    private double amount;
+    private Double amount;
     @NotBlank
     @Size(min=3, max=64)
     private String description;
@@ -29,10 +29,10 @@ public class CreateExpenditureDTO {
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
     }
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
     public String getDescription() {

@@ -20,11 +20,15 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, String
         where g.number = :groupNumber
         and (:firstname is null or lower(u.firstname) = lower(:firstname))
         and (:lastname is null or lower(u.lastname) = lower(:lastname))
+        and (:minAmount is null or e.amount >= :minAmount)
+        and (:maxAmount is null or e.amount <= :maxAmount)
     """)
-    List<Expenditure> findByGroupNumberAndOptionalUserName(
+    List<Expenditure> findByGroupAndFilters(
         @Param("groupNumber") int groupNumber,
         @Param("firstname") String firstname,
-        @Param("lastname") String lastname
+        @Param("lastname") String lastname,
+        @Param("minAmount") Double minAmount,
+        @Param("maxAmount") Double maxAmount
     );
 
     List<Expenditure> findByContributorAndGroup(Contributor contributor, Group group);

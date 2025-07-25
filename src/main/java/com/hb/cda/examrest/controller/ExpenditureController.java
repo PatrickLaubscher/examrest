@@ -45,9 +45,11 @@ public class ExpenditureController {
     public List<ExpenditureDTO> getGroupById(
         @RequestParam int groupNumber,
         @RequestParam(required = false) String firstname, 
-        @RequestParam(required = false) String lastname
+        @RequestParam(required = false) String lastname,
+        @RequestParam(required = false) Double min,
+        @RequestParam(required = false) Double max
         ) {
-        List<Expenditure> expenditures = expenditureBusiness.getExpendituresList(groupNumber, firstname, lastname);
+        List<Expenditure> expenditures = expenditureBusiness.getExpendituresList(groupNumber, firstname, lastname, min, max);
         return expenditureMapper.toDTOList(expenditures);
     }
     
