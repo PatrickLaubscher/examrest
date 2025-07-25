@@ -41,7 +41,7 @@ public class ExpenditureController {
         @RequestParam(required = false) String firstname, 
         @RequestParam(required = false) String lastname
         ) {
-        return groupMapper.toDTO(groupBusiness.findGroup(groupNumber));
+        return 
     }
     
 }
