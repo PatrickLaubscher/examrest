@@ -1,7 +1,6 @@
 package com.hb.cda.examrest.business.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,8 @@ import com.hb.cda.examrest.model.Group;
 import com.hb.cda.examrest.repository.ContributorRepository;
 import com.hb.cda.examrest.repository.ExpenditureRepository;
 import com.hb.cda.examrest.repository.GroupRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ExpenditureBusinessImpl implements ExpenditureBusiness {
@@ -65,18 +66,10 @@ public class ExpenditureBusinessImpl implements ExpenditureBusiness {
 
 
     @Override
+    @Transactional
     public List<Expenditure> getExpendituresList(int groupNumber, String firstname, String lastname) {
 
-        Group group = groupRepository.findByNumber(groupNumber).orElseThrow(
-            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le groupe n'existe pas")
-        );
-
-        List<Expenditure> expenditures = expenditureRepository.findByGroup(group);
-
-        return expenditures.stream()
-            .filter(e -> firstname == null || e.getContributor().getUser().getFirstname().equalsIgnoreCase(firstname))
-            .filter(e -> lastname == null || e.getContributor().getUser().getLastname().equalsIgnoreCase(lastname))
-            .collect(Collectors.toList());
+        return expenditureRepository.findByGroupNumberAndOptionalUserName(groupNumber, firstname, lastname);
 
     }
 
