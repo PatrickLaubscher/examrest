@@ -29,6 +29,9 @@ public class Group {
     @OneToMany(mappedBy="group")
     List<Expenditure> expenditures = new ArrayList<>();
 
+    @OneToMany(mappedBy="group")
+    List<Expenditure> repayments = new ArrayList<>();
+
 
     public Group() {
     }
@@ -95,6 +98,14 @@ public class Group {
 
     public void setExpenditures(List<Expenditure> expenditures) {
         this.expenditures = expenditures;
+    }
+
+    public List<Expenditure> getRepayments() {
+        return repayments;
+    }
+
+    public void setRepayments(List<Expenditure> repayments) {
+        this.repayments = repayments;
     }
 
 

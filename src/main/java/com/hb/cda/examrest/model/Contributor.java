@@ -37,6 +37,12 @@ public class Contributor {
     @OneToMany(mappedBy="contributor")
     private List<Expenditure> expenditures = new ArrayList<>();
 
+    @OneToMany(mappedBy="debtor")
+    private List<Repayment> repaymentsDue = new ArrayList<>();
+
+    @OneToMany(mappedBy="payer")
+    private List<Repayment> refunds = new ArrayList<>();
+
 
 
     public Contributor() {
@@ -109,6 +115,26 @@ public class Contributor {
 
     public void setExpenditures(List<Expenditure> expenditures) {
         this.expenditures = expenditures;
+    }
+
+
+    public List<Repayment> getRepaymentsDue() {
+        return repaymentsDue;
+    }
+
+
+    public void setRepaymentsDue(List<Repayment> repaymentsDue) {
+        this.repaymentsDue = repaymentsDue;
+    }
+
+
+    public List<Repayment> getRefunds() {
+        return refunds;
+    }
+
+
+    public void setRefunds(List<Repayment> refunds) {
+        this.refunds = refunds;
     }
 
 

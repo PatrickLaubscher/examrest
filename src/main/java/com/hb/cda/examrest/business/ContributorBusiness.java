@@ -7,7 +7,8 @@ import com.hb.cda.examrest.model.Group;
 
 @Service
 public interface ContributorBusiness {
-    Contributor addContributor(String username, Integer groupNumber); 
+    Contributor addContributor(String username, int groupNumber);
+    Contributor findContributor(String email, int groupNumber);
     void removeContributor(Contributor contributor);
     void updateAllContributorsBalance(Group group);
 }

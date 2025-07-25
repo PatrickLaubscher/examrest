@@ -35,7 +35,7 @@ public class ContributorBusinessImpl implements ContributorBusiness {
 
 
     @Override
-    public Contributor addContributor(String email, Integer groupNumber) {
+    public Contributor addContributor(String email, int groupNumber) {
 
         User user = userRepository.findByEmail(email).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le compte client n'existe pas")
@@ -76,11 +76,22 @@ public class ContributorBusinessImpl implements ContributorBusiness {
                 totalContributorExpenditures += exp.getAmount();
             }
 
-            double newBalance = totalContributorExpenditures - group.getTotal() / contributors.size();
+            double newBalance = group.getTotal() / contributors.size() - totalContributorExpenditures;
             groupMember.setBalance(newBalance);
             contributorRepository.save(groupMember);
         }
 
+    }
+
+
+    @Override
+    public Contributor findContributor(String email, int groupNumber) {
+
+        Contributor contributor = contributorRepository.findByUserEmailAndGroupNumber(email, groupNumber).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le contributeur n'existe pas")
+        );
+
+        return  contributor;
     }
 
 

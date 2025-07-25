@@ -7,7 +7,7 @@ import org.mapstruct.ReportingPolicy;
 import com.hb.cda.examrest.model.Group;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy= ReportingPolicy.IGNORE)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface GroupMapper {
 
     Group toEntity(CreateGroupDTO dto);

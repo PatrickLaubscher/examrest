@@ -10,7 +10,7 @@ import com.hb.cda.examrest.model.ContributorId;
 
 public interface ContributorRepository extends JpaRepository<Contributor, ContributorId> {
 
-    Optional<Contributor> findByUserEmailAndGroupNumber(String email, Integer number);
-    List<Contributor> findByGroupNumber(Integer number);
+    Optional<Contributor> findByUserEmailAndGroupNumber(String email, int number);
+    List<Contributor> findByGroupNumber(int number);
     
 }

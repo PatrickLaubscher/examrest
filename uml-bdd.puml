@@ -30,10 +30,19 @@ class Contributor {
     Double balance
 }
 
-
+class Repayment {
+    String id
+    Double amount
+    String debtor_id
+    String payer_id
+    String group_id
+    Boolean is_payed
+}
 
 
 Contributor ||..o{ Expenditure
+Contributor ||..o{ Repayment
+Contributor ||..o{ Repayment
 Group ||..o{ Expenditure
 User ||..o{ Contributor
 Group ||..o{ Contributor
