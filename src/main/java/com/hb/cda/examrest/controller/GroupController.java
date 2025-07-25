@@ -30,17 +30,18 @@ public class GroupController {
         this.groupMapper = groupMapper;
     }
 
-
-    @GetMapping("")
-    public GroupDTO getGroup(@RequestParam int groupNumber) {
-        return groupMapper.toDTO(groupBusiness.findGroup(groupNumber));
-    }
-
+    
     @PostMapping("/create")
     public String createGroup(@RequestBody @Valid CreateGroupDTO dto) {
         Group newGroup = groupBusiness.createGroup(groupMapper.toEntity(dto));
             return "Groupe n°" + newGroup.getNumber() + " créé";
     } 
+
+    @GetMapping("")
+    public GroupDTO getGroupById(@RequestParam int groupNumber) {
+        return groupMapper.toDTO(groupBusiness.findGroup(groupNumber));
+    }
+
 
 
     

@@ -9,7 +9,6 @@ class User {
     String password
 }
 
-
 class Expenditure {
     String id
     String description
@@ -30,6 +29,8 @@ class Contributor {
     String user_id
     Double balance
 }
+
+
 
 
 Contributor ||..o{ Expenditure
