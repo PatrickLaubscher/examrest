@@ -17,7 +17,7 @@ public class Repayment {
     private Double amount;
     
     @Column(name="is_payed")
-    private Boolean isPayed;
+    private Boolean payed;
 
     @ManyToOne
     private Group group;
@@ -36,10 +36,10 @@ public class Repayment {
     public Repayment() {
     }
 
-    public Repayment(String id, Double amount, Boolean isPayed, Group group, Contributor debtor, Contributor payer) {
+    public Repayment(String id, Double amount, Boolean payed, Group group, Contributor debtor, Contributor payer) {
         this.id = id;
         this.amount = amount;
-        this.isPayed = isPayed;
+        this.payed = payed;
         this.group = group;
         this.debtor = debtor;
         this.payer = payer;
@@ -61,12 +61,12 @@ public class Repayment {
         this.amount = amount;
     }
 
-    public Boolean getIsPayed() {
-        return isPayed;
+    public Boolean getPayed() {
+        return payed;
     }
 
-    public void setIsPayed(Boolean isPayed) {
-        this.isPayed = isPayed;
+    public void setPayed(Boolean payed) {
+        this.payed = payed;
     }
 
     public Group getGroup() {

@@ -87,7 +87,18 @@ public class ContributorBusinessImpl implements ContributorBusiness {
     @Override
     public Contributor findContributor(String email, int groupNumber) {
 
-        Contributor contributor = contributorRepository.findByUserEmailAndGroupNumber(email, groupNumber).orElseThrow(
+        Contributor contributor = contributorRepository.findByEmailAndGroupNumber(email, groupNumber).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le contributeur n'existe pas")
+        );
+
+        return  contributor;
+    }
+
+
+    @Override
+    public Contributor findContributorByFirstname(String firstname, int groupNumber) {
+
+        Contributor contributor = contributorRepository.findByFirstnameAndGroupNumber(firstname, groupNumber).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le contributeur n'existe pas")
         );
 

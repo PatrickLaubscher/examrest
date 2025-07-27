@@ -32,7 +32,7 @@ public class RepaymentBusinessImpl implements RepaymentBusiness {
         Group group = groupBusiness.findGroup(groupNumber);
 
         Repayment newRepayment = new Repayment();
-        newRepayment.setIsPayed(false);
+        newRepayment.setPayed(false);
         newRepayment.setAmount(amount);
         newRepayment.setGroup(group);
         newRepayment.setDebtor(debtor);
@@ -66,6 +66,21 @@ public class RepaymentBusinessImpl implements RepaymentBusiness {
     @Override
     public List<Repayment> findAllIncomingPayment(Contributor payer) {
         return repaymentRepository.findByPayer(payer);
+    }
+
+
+    @Override
+    public Repayment confirmRepaymentIsPayed(Contributor debtor, int groupNumber, Double amount, Contributor payer) {
+        Group group = groupBusiness.findGroup(groupNumber);
+        Repayment repayment = repaymentRepository.findByDebtorAndGroupAndAmountAndPayer(debtor, group, amount, payer);
+
+        if(amount.equals(repayment.getAmount())) {
+            repayment.setPayed(true);
+        } else  {
+            throw new IllegalArgumentException("Le montant du remboursement ne correspond pas entièrement à la somme attendue");
+        }
+       
+        return repaymentRepository.save(repayment);
     }
 
 

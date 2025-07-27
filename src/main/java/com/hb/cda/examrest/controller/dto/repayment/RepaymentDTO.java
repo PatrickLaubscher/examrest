@@ -7,7 +7,7 @@ public class RepaymentDTO {
     
     private ExpenditureDTO expenditure;    
     private Double amount;
-    private Boolean isPayed;
+    private Boolean payed;
 
 
     public ExpenditureDTO getExpenditure() {
@@ -22,11 +22,11 @@ public class RepaymentDTO {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-    public Boolean getIsPayed() {
-        return isPayed;
+    public Boolean getPayed() {
+        return payed;
     }
-    public void setPayed(Boolean isPayed) {
-        this.isPayed = isPayed;
+    public void setPayed(Boolean payed) {
+        this.payed = payed;
     }
 
 

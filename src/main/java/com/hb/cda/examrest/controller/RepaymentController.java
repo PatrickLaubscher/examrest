@@ -3,16 +3,21 @@ package com.hb.cda.examrest.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.ContributorBusiness;
 import com.hb.cda.examrest.business.RepaymentBusiness;
+import com.hb.cda.examrest.controller.dto.repayment.ConfirmRepaymentRequestDTO;
+import com.hb.cda.examrest.controller.dto.repayment.RepaymentDTO;
 import com.hb.cda.examrest.controller.dto.repayment.RepaymentListDTO;
 import com.hb.cda.examrest.controller.dto.repayment.RepaymentMapper;
 import com.hb.cda.examrest.model.Contributor;
 import com.hb.cda.examrest.model.Repayment;
+
 
 
 
@@ -52,6 +57,16 @@ public class RepaymentController {
         return repaymentList;
     }
     
+    
+    @PostMapping("/confirm-payment")
+    public RepaymentDTO confirmPayment(@RequestBody ConfirmRepaymentRequestDTO request) {
+         
+        Contributor debtor = contributorBusiness.findContributor(request.getEmail(), request.getGroupNumber());
+        Contributor payer = contributorBusiness.findContributorByFirstname(request.getPayerFirstname(), request.getGroupNumber());
+
+        Repayment repayment = repaymentBusiness.confirmRepaymentIsPayed(debtor, request.getGroupNumber(), request.getAmount(), payer);
+        return repaymentMapper.toDTO(repayment);
+    }
     
 
 
