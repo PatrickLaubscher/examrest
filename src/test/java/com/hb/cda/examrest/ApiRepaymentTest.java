@@ -1,5 +1,6 @@
 package com.hb.cda.examrest;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +84,28 @@ public class ApiRepaymentTest {
 
 
     @Test
-    void completeRepaymentShouldBySetTrue() throws Exception {
+    void shouldSendExceptionIfAmountIsNotCorrect() throws Exception {
+        mvc.perform(post("/api/repayment/confirm-payment")
+        .contentType(MediaType.APPLICATION_JSON)
+		.content("""
+			{
+				"email":"debtor@test.com",
+				"groupNumber": 1,
+                "amount": 10.0,
+                "payerFirstname": "payer1"
+			}   
+		    """))
+        .andExpect(status().isBadRequest())
+        .andExpect(result -> {
+            String content = result.getResolvedException().getMessage();
+            assertTrue(content.contains("Le montant du remboursement ne correspond pas entièrement"));
+        });
+    }  
 
+    
+
+    @Test
+    void completeRepaymentShouldBySetTrue() throws Exception {
         mvc.perform(post("/api/repayment/confirm-payment")
         .contentType(MediaType.APPLICATION_JSON)
 		.content("""
@@ -99,8 +120,6 @@ public class ApiRepaymentTest {
         .andExpect(jsonPath("$.payed").value(true));
     }
 
-
-    
 
 
 

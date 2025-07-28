@@ -12,5 +12,5 @@ public interface RepaymentRepository extends JpaRepository<Repayment, String>{
 
     List<Repayment> findByDebtor(Contributor debtor);
     List<Repayment> findByPayer(Contributor payer);
-    Repayment findByDebtorAndGroupAndAmountAndPayer(Contributor debtor, Group group, Double amount, Contributor payer);
+    Repayment findByDebtorAndGroupAndPayer(Contributor debtor, Group group, Contributor payer);
 }

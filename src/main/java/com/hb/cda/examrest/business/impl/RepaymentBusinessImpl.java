@@ -2,7 +2,9 @@ package com.hb.cda.examrest.business.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.hb.cda.examrest.business.GroupBusiness;
 import com.hb.cda.examrest.business.RepaymentBusiness;
@@ -72,12 +74,12 @@ public class RepaymentBusinessImpl implements RepaymentBusiness {
     @Override
     public Repayment confirmRepaymentIsPayed(Contributor debtor, int groupNumber, Double amount, Contributor payer) {
         Group group = groupBusiness.findGroup(groupNumber);
-        Repayment repayment = repaymentRepository.findByDebtorAndGroupAndAmountAndPayer(debtor, group, amount, payer);
+        Repayment repayment = repaymentRepository.findByDebtorAndGroupAndPayer(debtor, group, payer);
 
         if(amount.equals(repayment.getAmount())) {
             repayment.setPayed(true);
         } else  {
-            throw new IllegalArgumentException("Le montant du remboursement ne correspond pas entièrement à la somme attendue");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le montant du remboursement ne correspond pas entièrement à la somme attendue");
         }
        
         return repaymentRepository.save(repayment);

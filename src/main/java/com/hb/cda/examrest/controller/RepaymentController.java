@@ -26,9 +26,9 @@ import com.hb.cda.examrest.model.Repayment;
 @RequestMapping("/api/repayment")
 public class RepaymentController {
 
-    private RepaymentBusiness repaymentBusiness;
-    private ContributorBusiness contributorBusiness;
-    private RepaymentMapper repaymentMapper;
+    private final RepaymentBusiness repaymentBusiness;
+    private final ContributorBusiness contributorBusiness;
+    private final RepaymentMapper repaymentMapper;
 
     
     public RepaymentController(RepaymentBusiness repaymentBusiness, ContributorBusiness contributorBusiness,
