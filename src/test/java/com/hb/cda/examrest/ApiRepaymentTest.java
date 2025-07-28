@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -23,11 +24,12 @@ import jakarta.transaction.Transactional;
 
 
 
-@SpringBootTest(classes = ExamrestApplication.class)
+
+@SpringBootTest
 @AutoConfigureTestDatabase
 @AutoConfigureMockMvc(addFilters = false)
 @Transactional
-public class ApiRepaymentTest {
+class ApiRepaymentTest {
     
     @Autowired
 	MockMvc mvc;
@@ -103,7 +105,7 @@ public class ApiRepaymentTest {
     }  
 
     
-
+    @WithMockUser(username = "debtor@test.com", roles = {"USER"})
     @Test
     void completeRepaymentShouldBySetTrue() throws Exception {
         mvc.perform(post("/api/repayment/confirm-payment")
