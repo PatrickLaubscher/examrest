@@ -1,5 +1,7 @@
 package com.hb.cda.examrest.business.impl;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -43,8 +45,15 @@ public class GroupBusinessImpl implements GroupBusiness {
         Group group = groupRepository.findByNumber(groupNumber).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Le groupe n'existe pas")
         );
-
         return group;
+    }
+    
+
+    @Override
+    public List<Group> findAllGroupByUser(String email) {
+
+        List<Group> groups = groupRepository.findAllByUserEMail(email);
+        return groups;
     }
 
 
@@ -53,5 +62,6 @@ public class GroupBusinessImpl implements GroupBusiness {
         // TODO
         throw new UnsupportedOperationException("Unimplemented method 'activateUser'");
     }
+
     
 }

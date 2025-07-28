@@ -10,5 +10,6 @@ import com.hb.cda.examrest.model.User;
 public interface UserMapper {
 
     User toEntity(CreateUserDTO dto);
-    UserDTO toDTO(User user);
+    UserDTO toUserDTO(User user);
+    UserSingleDTO toUserSingleDTO(User user);
 }

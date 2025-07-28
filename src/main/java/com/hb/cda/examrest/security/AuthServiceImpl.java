@@ -2,7 +2,6 @@ package com.hb.cda.examrest.security;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.http.HttpStatus;
@@ -15,11 +14,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.hb.cda.examrest.controller.dto.LoginCredentialsDTO;
 import com.hb.cda.examrest.controller.dto.LoginResponseDTO;
+import com.hb.cda.examrest.controller.dto.user.UserDTO;
 import com.hb.cda.examrest.controller.dto.user.UserMapper;
 import com.hb.cda.examrest.model.RefreshToken;
 import com.hb.cda.examrest.model.User;
 import com.hb.cda.examrest.repository.RefreshTokenRepository;
 import com.hb.cda.examrest.repository.UserRepository;
+import com.hb.cda.examrest.security.jwt.JwtUtil;
 
 import jakarta.transaction.Transactional;
 

@@ -1,10 +1,10 @@
 package com.hb.cda.examrest.controller.dto.contributor;
 
-import com.hb.cda.examrest.controller.dto.user.UserDTO;
+import com.hb.cda.examrest.controller.dto.user.UserSingleDTO;
 
 public class ContributorDTO {
 
-    private UserDTO user;
+    private UserSingleDTO user;
     private Double balance;
 
     
@@ -16,11 +16,11 @@ public class ContributorDTO {
         this.balance = balance;
     }
     
-    public UserDTO getUser() {
+    public UserSingleDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserSingleDTO user) {
         this.user = user;
     }
 

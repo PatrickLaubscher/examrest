@@ -1,16 +1,16 @@
 package com.hb.cda.examrest.controller.dto.contributor;
 
-import com.hb.cda.examrest.controller.dto.user.UserDTO;
+import com.hb.cda.examrest.controller.dto.user.UserSingleDTO;
 
 public class ContributorSingleDTO {
 
-    private UserDTO user;
+    private UserSingleDTO user;
 
-    public UserDTO getUser() {
+    public UserSingleDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserSingleDTO user) {
         this.user = user;
     }
 

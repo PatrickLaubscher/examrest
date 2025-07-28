@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.AccountBusiness;
 import com.hb.cda.examrest.controller.dto.user.CreateUserDTO;
-import com.hb.cda.examrest.controller.dto.user.UserDTO;
 import com.hb.cda.examrest.controller.dto.user.UserMapper;
+import com.hb.cda.examrest.controller.dto.user.UserSingleDTO;
 
 import jakarta.validation.Valid;
 
@@ -32,8 +32,8 @@ public class UserController {
 
 
     @GetMapping("")
-    public UserDTO getUserByEmail(@RequestParam String email) {
-        return userMapper.toDTO(accountBusiness.findUserByEmail(email));
+    public UserSingleDTO getUserByEmail(@RequestParam String email) {
+        return userMapper.toUserSingleDTO(accountBusiness.findUserByEmail(email));
     }
     
 

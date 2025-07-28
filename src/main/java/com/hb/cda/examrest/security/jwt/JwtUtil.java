@@ -1,4 +1,4 @@
-package com.hb.cda.examrest.security.JwtUtil;
+package com.hb.cda.examrest.security.jwt;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,19 +22,21 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.hb.cda.springholiday.security.UserService;
-
-import lombok.AllArgsConstructor;
+import com.hb.cda.examrest.security.UserService;
 
 
 @Service
-@AllArgsConstructor
 public class JwtUtil {
 
     private final UserService userService;
     private final KeyManager keyManager;
 
     
+    public JwtUtil(UserService userService, KeyManager keyManager) {
+        this.userService = userService;
+        this.keyManager = keyManager;
+    }
+
     /**
      * Génère un JWT contenant l'identifiant du user passé en paramètre
      * par défaut son temps d'expiration est de 30 minutes
@@ -98,6 +100,20 @@ public class JwtUtil {
         }
         
         
+    }
+
+
+    public String extractEmail(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT
+                .require(keyManager.getAlgorithm())
+                .build()
+                .verify(token);
+
+            return decodedJWT.getSubject(); 
+        } catch (JWTVerificationException e) {
+            throw new AuthorizationDeniedException("Invalid token");
+        } 
     }
 
 }
