@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,9 +47,14 @@ class ApiRepaymentTest {
         user1.setLastname("debtor");
 
         User user2 = new User();
-        user2.setEmail("payer@test.com");
+        user2.setEmail("payer2@test.com");
         user2.setFirstname("payer1");
-        user2.setLastname("payer");
+        user2.setLastname("payer1");
+
+        User user3 = new User();
+        user2.setEmail("payer2@test.com");
+        user2.setFirstname("payer2");
+        user2.setLastname("payer2");
 
         Group group1 = new Group();
         group1.setName("group1");
@@ -56,6 +62,7 @@ class ApiRepaymentTest {
 
         em.persist(user1);
 		em.persist(user2);
+        em.persist(user3);
 		em.persist(group1);
     
         Contributor debtor = new Contributor();
@@ -64,25 +71,55 @@ class ApiRepaymentTest {
         debtor.setUserId(user1.getId());
         debtor.setGroupId(group1.getId()); 
         
-        Contributor payer = new Contributor();
-        payer.setUser(user2);
-        payer.setGroup(group1);
-        payer.setUserId(user2.getId());
-        payer.setGroupId(group1.getId()); 
+        Contributor payer1 = new Contributor();
+        payer1.setUser(user2);
+        payer1.setGroup(group1);
+        payer1.setUserId(user2.getId());
+        payer1.setGroupId(group1.getId());
+        
+        Contributor payer2 = new Contributor();
+        payer2.setUser(user3);
+        payer2.setGroup(group1);
+        payer2.setUserId(user2.getId());
+        payer2.setGroupId(group1.getId()); 
 
         Repayment repayment1 = new Repayment();
         repayment1.setDebtor(debtor);
-        repayment1.setPayer(payer);
+        repayment1.setPayer(payer1);
         repayment1.setGroup(group1);
         repayment1.setAmount(20.0);
         repayment1.setPayed(false);
 
+        Repayment repayment2 = new Repayment();
+        repayment2.setDebtor(debtor);
+        repayment2.setPayer(payer2);
+        repayment2.setGroup(group1);
+        repayment2.setAmount(30.0);
+        repayment2.setPayed(false);
+
         em.persist(debtor);
-        em.persist(payer);
+        em.persist(payer1);
         em.persist(repayment1);
+        em.persist(repayment2);
         em.flush();
 		
 	}
+
+
+    @Test
+    @WithMockUser(username="debtor@test.com")
+    void shouldReturnListOfRepaymentNotPayed() throws Exception {
+        String type = "due";
+        int groupNumber = 1;
+        mvc.perform(get("/api/repayment?groupNumber=" + groupNumber + "&type=" + type)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isMap())
+            .andExpect(jsonPath("$.repayments.length()").value(2))
+            .andExpect(jsonPath("$.repayments.[0].payed").value(false))
+            .andExpect(jsonPath("$.repayments.[1].payed").value(false));
+    }
+
 
 
     @Test
