@@ -2,10 +2,11 @@ package com.hb.cda.examrest.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,6 @@ import com.hb.cda.examrest.controller.dto.group.GroupDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupListDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupMapper;
 import com.hb.cda.examrest.model.Group;
-import com.hb.cda.examrest.security.jwt.JwtUtil;
 
 import jakarta.validation.Valid;
 
@@ -28,13 +28,11 @@ public class GroupController {
 
     private final GroupBusiness groupBusiness;
     private final GroupMapper groupMapper;
-    private final JwtUtil jwtUtil;
 
 
-    public GroupController(GroupBusiness groupBusiness, GroupMapper groupMapper, JwtUtil jwtUtil) {
+    public GroupController(GroupBusiness groupBusiness, GroupMapper groupMapper) {
         this.groupBusiness = groupBusiness;
         this.groupMapper = groupMapper;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/create")
@@ -49,10 +47,9 @@ public class GroupController {
     }
 
     @GetMapping("/all-group")
-    public GroupListDTO getAllGroup(@RequestHeader("Authorization") String authorizationHeader) {
+    public GroupListDTO getAllGroup( @AuthenticationPrincipal UserDetails userDetails) {
 
-        String token = authorizationHeader.replace("Bearer ", "");
-        String email = jwtUtil.extractEmail(token);
+        String email = userDetails.getUsername();
         List<Group> groups = groupBusiness.findAllGroupByUser(email);
         return groupMapper.toGroupListDTO(groups);
     }

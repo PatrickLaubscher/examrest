@@ -2,17 +2,10 @@ package com.hb.cda.examrest.controller.dto.repayment;
 
 public class ConfirmRepaymentRequestDTO {
 
-    private String email;
     private int groupNumber;
     private Double amount;
     private String payerFirstname;
 
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
     public int getGroupNumber() {
         return groupNumber;
     }

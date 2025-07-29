@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,7 +28,7 @@ import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 @Transactional
 class ApiRepaymentTest {
     
@@ -86,12 +87,12 @@ class ApiRepaymentTest {
 
 
     @Test
+    @WithMockUser(username="debtor@test.com")
     void shouldSendExceptionIfAmountIsNotCorrect() throws Exception {
         mvc.perform(post("/api/repayment/confirm-payment")
         .contentType(MediaType.APPLICATION_JSON)
 		.content("""
 			{
-				"email":"debtor@test.com",
 				"groupNumber": 1,
                 "amount": 10.0,
                 "payerFirstname": "payer1"
@@ -105,14 +106,14 @@ class ApiRepaymentTest {
     }  
 
     
-    @WithMockUser(username = "debtor@test.com", roles = {"USER"})
+
     @Test
+    @WithMockUser(username="debtor@test.com")
     void completeRepaymentShouldBySetTrue() throws Exception {
         mvc.perform(post("/api/repayment/confirm-payment")
         .contentType(MediaType.APPLICATION_JSON)
 		.content("""
 			{
-				"email":"debtor@test.com",
 				"groupNumber": 1,
                 "amount": 20.0,
                 "payerFirstname": "payer1"
@@ -121,8 +122,5 @@ class ApiRepaymentTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.payed").value(true));
     }
-
-
-
 
 }

@@ -103,17 +103,4 @@ public class JwtUtil {
     }
 
 
-    public String extractEmail(String token) {
-        try {
-            DecodedJWT decodedJWT = JWT
-                .require(keyManager.getAlgorithm())
-                .build()
-                .verify(token);
-
-            return decodedJWT.getSubject(); 
-        } catch (JWTVerificationException e) {
-            throw new AuthorizationDeniedException("Invalid token");
-        } 
-    }
-
 }

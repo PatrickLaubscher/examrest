@@ -2,11 +2,12 @@ package com.hb.cda.examrest.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hb.cda.examrest.business.ContributorBusiness;
@@ -40,8 +41,9 @@ public class RepaymentController {
 
 
     @GetMapping("")
-    public RepaymentListDTO getRepaymentList(@RequestParam String email, int groupNumber, String type) {
+    public RepaymentListDTO getRepaymentList(@AuthenticationPrincipal UserDetails userDetails, int groupNumber, String type) {
 
+        String email = userDetails.getUsername();
         Contributor contributor = contributorBusiness.findContributor(email, groupNumber);
         RepaymentListDTO repaymentList = new RepaymentListDTO(null);
 
@@ -59,9 +61,10 @@ public class RepaymentController {
     
     
     @PostMapping("/confirm-payment")
-    public RepaymentDTO confirmPayment(@RequestBody ConfirmRepaymentRequestDTO request) {
-         
-        Contributor debtor = contributorBusiness.findContributor(request.getEmail(), request.getGroupNumber());
+    public RepaymentDTO confirmPayment(@AuthenticationPrincipal UserDetails userDetails, @RequestBody ConfirmRepaymentRequestDTO request) {
+        
+        String email = userDetails.getUsername();
+        Contributor debtor = contributorBusiness.findContributor(email, request.getGroupNumber());
         Contributor payer = contributorBusiness.findContributorByFirstname(request.getPayerFirstname(), request.getGroupNumber());
 
         Repayment repayment = repaymentBusiness.confirmRepaymentIsPayed(debtor, request.getGroupNumber(), request.getAmount(), payer);

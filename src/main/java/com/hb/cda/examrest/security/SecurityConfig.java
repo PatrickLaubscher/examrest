@@ -16,9 +16,9 @@ import com.hb.cda.examrest.security.jwt.JwtFilter;
 @Configuration
 public class SecurityConfig {
 
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
-    private JwtFilter jwtFilter;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtFilter jwtFilter;
 
 
     public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder, JwtFilter jwtFilter) {
