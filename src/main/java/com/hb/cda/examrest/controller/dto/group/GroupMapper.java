@@ -15,6 +15,7 @@ public interface GroupMapper {
 
     Group toEntity(CreateGroupDTO dto);
     GroupDTO toDTO(Group group);
+    GroupResponseDTO toResponseDTO(Group group);
 
     List<GroupDTO> toDTOList(List<Group> groups);
 

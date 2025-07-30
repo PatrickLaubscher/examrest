@@ -1,5 +1,6 @@
 package com.hb.cda.examrest;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.hb.cda.examrest.model.Contributor;
@@ -24,9 +27,8 @@ import jakarta.transaction.Transactional;
 @AutoConfigureTestDatabase
 @AutoConfigureMockMvc
 @Transactional
-public class ApiContributorTest {
-    
-    
+public class ApiGroupTest {
+
     @Autowired
 	MockMvc mvc;
 	@Autowired
@@ -63,21 +65,39 @@ public class ApiContributorTest {
         
         em.flush();
 		
-	}
+	} 
 
-    
+        
     @Test
-    void shouldPersistContributor() throws Exception {
-        mvc.perform(post("/api/contributor/add")
+    @WithMockUser()
+    void shouldPersistGroupWithoutDescription() throws Exception {
+        mvc.perform(post("/api/group/create")
         .contentType(MediaType.APPLICATION_JSON)
         .content("""
                 {
-                    "email":"%s",
-                    "groupNumber":"%s"
+                    "name":"groupeTest"
                 }        
-                """.formatted(user1.getEmail(), group1.getNumber())))
-        .andExpect(status().isCreated());
-
+                """))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.number").value(2))
+        .andExpect(jsonPath("$.description").value((Object) null));
     }
+    
 
+    @Test
+    @WithMockUser()
+    void shouldPersistGroupWithDescription() throws Exception {
+        mvc.perform(post("/api/group/create")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("""
+                {
+                    "name":"groupeTest",
+                    "description":"descriptionTest"
+                }        
+                """))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.number").value(2))
+        .andExpect(jsonPath("$.description").value("descriptionTest"));
+    }
+    
 }
