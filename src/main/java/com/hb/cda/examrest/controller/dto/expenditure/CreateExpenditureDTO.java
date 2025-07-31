@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Size;
 
 public class CreateExpenditureDTO {
 
-    @NotBlank
-    private String email;
     @Min(1)
     private int groupNumber;
     @Min(1)
@@ -17,12 +15,6 @@ public class CreateExpenditureDTO {
     private String description;
 
 
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
     public int getGroupNumber() {
         return groupNumber;
     }

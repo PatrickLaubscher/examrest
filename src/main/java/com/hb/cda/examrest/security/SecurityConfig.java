@@ -32,6 +32,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(request -> request
         .requestMatchers("/api/repayment").authenticated()
+        .requestMatchers("/api/expenditure").authenticated()
         .requestMatchers("/api/group").authenticated()
         .anyRequest().permitAll());
         http.sessionManagement(session -> session.sessionCreationPolicy(

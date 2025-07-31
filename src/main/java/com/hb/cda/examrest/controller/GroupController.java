@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hb.cda.examrest.business.GroupBusiness;
 import com.hb.cda.examrest.controller.dto.group.CreateGroupDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupDTO;
-import com.hb.cda.examrest.controller.dto.group.GroupResponseDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupListDTO;
 import com.hb.cda.examrest.controller.dto.group.GroupMapper;
+import com.hb.cda.examrest.controller.dto.group.GroupResponseDTO;
 import com.hb.cda.examrest.model.Group;
 
 import jakarta.validation.Valid;
@@ -51,8 +51,7 @@ public class GroupController {
     }
 
     @GetMapping("/all-group")
-    public GroupListDTO getAllGroup( @AuthenticationPrincipal UserDetails userDetails) {
-
+    public GroupListDTO getAllGroup(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
         List<Group> groups = groupBusiness.findAllGroupByUser(email);
         return groupMapper.toGroupListDTO(groups);
